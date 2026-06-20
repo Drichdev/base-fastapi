@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "base-fastapi-pro"
+version = "1.0.0"
+description = "Production-ready FastAPI base project with MongoDB, Redis/Celery, JWT, monitoring"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

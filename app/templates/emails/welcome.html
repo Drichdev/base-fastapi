@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .content h2 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+        .content p {
+            line-height: 1.7;
+            color: #4a5568;
+        }
+        .footer {
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #a0aec0;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ app_name }}</h1>
+        </div>
+        <div class="content">
+            <h2>Bienvenue, {{ first_name }} ! 🎉</h2>
+            <p>Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter et commencer à utiliser notre plateforme.</p>
+            <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+            <p>Cordialement,<br><strong>L'équipe {{ app_name }}</strong></p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 {{ app_name }}. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>

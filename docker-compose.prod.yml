@@ -1,0 +1,30 @@
+services:
+  app:
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./.env:/app/.env
+    restart: always
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+
+  worker:
+    command: celery -A app.tasks.celery_app.celery_app worker --loglevel=warning
+    volumes:
+      - ./.env:/app/.env
+    restart: always
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+
+  mongo:
+    restart: always
+
+  redis:
+    restart: always
+
+  prometheus:
+    restart: always
+
+  grafana:
+    restart: always

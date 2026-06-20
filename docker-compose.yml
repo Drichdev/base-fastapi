@@ -1,0 +1,89 @@
+services:
+  app:
+    build:
+      context: .
+      target: runner
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./app:/app/app
+      - ./.env:/app/.env
+      - ./tests:/app/tests
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=development
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - base-network
+
+  worker:
+    build:
+      context: .
+      target: runner
+    command: celery -A app.tasks.celery_app.celery_app worker --loglevel=info
+    volumes:
+      - ./app:/app/app
+      - ./.env:/app/.env
+    environment:
+      - APP_ENV=development
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      - base-network
+
+  mongo:
+    image: mongo:6.0
+    container_name: base_fastapi_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - base-network
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: base_fastapi_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - base-network
+
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: base_fastapi_prometheus
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - base-network
+
+  grafana:
+    image: grafana/grafana:10.0.0
+    container_name: base_fastapi_grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - base-network
+
+networks:
+  base-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
