@@ -1,5 +1,7 @@
 # Base FastAPI
 
+![alt text](api.png)
+
 Base de projet FastAPI prête pour la production, construite selon les principes de la Clean Architecture.
 
 Cette architecture intègre :
@@ -13,6 +15,8 @@ Cette architecture intègre :
 * Conteneurisation avec Docker
 
 ---
+
+
 
 # Architecture du Projet
 
